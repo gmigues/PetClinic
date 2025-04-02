@@ -2,3 +2,4 @@
 *.key
 .terraform.lock*
 .terraform/
+terraform.tfstate*

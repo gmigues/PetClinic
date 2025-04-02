@@ -7,6 +7,7 @@ module "vpc_module" {
   availability_zone  = var.availability_zone
   availability_zone_b = var.availability_zone_b
   publicB_Snet_cidr = var.publicB_Snet_cidr
+  vpc_name = var.vpc_name
 }
 
 # module "eks_module" {

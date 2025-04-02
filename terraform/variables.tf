@@ -6,6 +6,10 @@ variable "region" {
     default = "us-east-1"
 }
 
+variable "vpc_name" {
+  default = "petClinic_VPC"
+}
+
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC."
   type        = string
