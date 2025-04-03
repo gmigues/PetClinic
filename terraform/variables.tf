@@ -1,9 +1,9 @@
 variable "profile" {
-    default = "personal"
+  default = "personal"
 }
 
 variable "region" {
-    default = "us-east-1"
+  default = "us-east-1"
 }
 
 variable "vpc_name" {
@@ -25,7 +25,7 @@ variable "public_Snet_cidr" {
 variable "publicB_Snet_cidr" {
   description = "The CIDR block for the Public Subnet."
   type        = string
-  default = "10.0.4.0/24"
+  default     = "10.0.4.0/24"
 }
 
 variable "private_Snet_cidr" {
@@ -50,7 +50,7 @@ variable "availability_zone" {
 variable "availability_zone_b" {
   description = "The availability zone for the subnets"
   type        = string
-  default = "us-east-1b"
+  default     = "us-east-1b"
 }
 
 # variable "cluster_name" {
@@ -69,11 +69,16 @@ variable "availability_zone_b" {
 #
 
 variable "user_name" {
-  type = string
+  type    = string
   default = "gonzalo"
 }
 
 variable "user_arn" {
-  type = string
+  type    = string
   default = "arn:aws:iam::976265146601:user/gonzalo"
+}
+
+variable "env" {
+  type    = string
+  default = "pc-prod"
 }

@@ -1,22 +1,24 @@
 module "vpc_module" {
-  source = "./modules/vpc"
-  vpc_cidr           = var.vpc_cidr
-  public_Snet_cidr   = var.public_Snet_cidr
-  private_Snet_cidr  = var.private_Snet_cidr
-  privateB_Snet_cidr = var.privateB_Snet_cidr
-  availability_zone  = var.availability_zone
+  source              = "./modules/vpc"
+  vpc_cidr            = var.vpc_cidr
+  public_Snet_cidr    = var.public_Snet_cidr
+  private_Snet_cidr   = var.private_Snet_cidr
+  privateB_Snet_cidr  = var.privateB_Snet_cidr
+  availability_zone   = var.availability_zone
   availability_zone_b = var.availability_zone_b
-  publicB_Snet_cidr = var.publicB_Snet_cidr
-  vpc_name = var.vpc_name
+  publicB_Snet_cidr   = var.publicB_Snet_cidr
+  vpc_name            = var.vpc_name
+
 }
 
 module "eks_module" {
-  source       = "./modules/eks"
-  vpc_id = module.vpc_module.vpc_id
+  source     = "./modules/eks"
+  vpc_id     = module.vpc_module.vpc_id
   subnet_ids = module.vpc_module.private_subnet_ids
-  user_arn = var.user_arn
-  user_name = var.user_name
-  
+  user_arn   = var.user_arn
+  user_name  = var.user_name
+  depends_on = [module.vpc_module]
+
 
 }
 

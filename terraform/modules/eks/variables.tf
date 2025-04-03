@@ -31,3 +31,8 @@ variable "user_name" {
 variable "user_arn" {
   type = string
 }
+
+variable "env" {
+  type = string
+  default = "Prod"
+}

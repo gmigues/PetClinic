@@ -37,3 +37,7 @@ variable "availability_zone_b" {
   description = "The availability zone for the subnets"
   type        = string
 }
+
+variable "env" {
+  default = "Prod"
+}
