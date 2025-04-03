@@ -23,3 +23,11 @@ variable "vpc_id" {
   type = string
   
 }
+
+variable "user_name" {
+  type = string
+}
+
+variable "user_arn" {
+  type = string
+}

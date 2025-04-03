@@ -1,7 +1,7 @@
 
 
 locals {
-  name   = "gms-cluster"
+  name   = "pc-cluster"
 
  
   tags = {
@@ -43,10 +43,10 @@ module "eks" {
   eks_managed_node_groups = {
     gms-node-group = {
       min_size     = 1
-      max_size     = 10
+      max_size     = 2
       desired_size = 1
 
-      instance_types = ["t3.large"]
+      instance_types = ["t2.micro"]
       capacity_type  = "SPOT"
     }
   }
@@ -66,7 +66,7 @@ module "eks" {
 
 
   tags = {
-    Environment = "dev"
+    Environment = "prod"
     Terraform   = "true"
   }
 }
@@ -102,8 +102,8 @@ module "eks_auth" {
 
   aws_auth_users = [
     {
-      userarn  = "arn:aws:iam::732413158824:user/gonzalo_dev"
-      username = "gonzalo_dev"
+      userarn  = var.user_arn
+      username = var.user_name
       groups   = ["system:masters"]
     },
   ]
@@ -116,7 +116,7 @@ module "eks_auth" {
 
 resource "aws_eks_access_entry" "example" {
   cluster_name      = local.name
-  principal_arn     = "arn:aws:iam::732413158824:user/gonzalo_dev"
+  principal_arn     = var.user_arn
   kubernetes_groups = ["Admin"]
   type              = "STANDARD"
 }

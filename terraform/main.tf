@@ -10,12 +10,13 @@ module "vpc_module" {
   vpc_name = var.vpc_name
 }
 
-# module "eks_module" {
-#   source       = "./modules/eks"
-#   vpc_id = module.vpc_module.vpc_id
-#   subnet_ids = module.vpc_module.private_subnet_ids
+module "eks_module" {
+  source       = "./modules/eks"
+  vpc_id = module.vpc_module.vpc_id
+  subnet_ids = module.vpc_module.private_subnet_ids
+  depends_on = module.vpc_module
 
-# }
+}
 
 
 # # Grupo de seguridad para los nodos de EKS
