@@ -67,3 +67,13 @@ variable "availability_zone_b" {
 #
 #
 #
+
+variable "user_name" {
+  type = string
+  default = "gonzalo"
+}
+
+variable "user_arn" {
+  type = string
+  default = "arn:aws:iam::976265146601:user/gonzalo"
+}

@@ -14,7 +14,9 @@ module "eks_module" {
   source       = "./modules/eks"
   vpc_id = module.vpc_module.vpc_id
   subnet_ids = module.vpc_module.private_subnet_ids
-  depends_on = module.vpc_module
+  user_arn = var.user_arn
+  user_name = var.user_name
+  
 
 }
 
