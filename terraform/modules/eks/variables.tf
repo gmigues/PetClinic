@@ -36,3 +36,9 @@ variable "env" {
   type = string
   default = "Prod"
 }
+
+variable "cluster_name" {
+  description = "The name of the EKS cluster."
+  type        = string
+
+}

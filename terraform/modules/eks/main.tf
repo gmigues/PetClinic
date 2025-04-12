@@ -1,24 +1,14 @@
 
 
-locals {
-  name   = "pc-cluster"
-
- 
-  tags = {
-    Example = local.name
-  }
-}
-
-
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
   version = "~> 20.31"
 
-  cluster_name    = local.name
+  cluster_name    = var.cluster_name
   cluster_version = "1.31"
 
   cluster_endpoint_public_access  = true
-  cluster_endpoint_public_access_cidrs = ["179.26.144.208/32"] # Agregar el rango de IPs públicas de PetClinic
+  cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"] # Agregar el rango de IPs públicas de PetClinic
 
   cluster_addons = {
     coredns = {
@@ -105,11 +95,11 @@ module "eks" {
 # }
 
 
-resource "aws_eks_access_entry" "pc-access_entry" {
-  cluster_name      = local.name
-  principal_arn     = var.user_arn
-  kubernetes_groups = ["Admin"]
-  type              = "STANDARD"
-  depends_on = [module.eks]
-}
+# resource "aws_eks_access_entry" "pc-access_entry" {
+#   cluster_name      = var
+#   principal_arn     = var.user_arn
+#   kubernetes_groups = ["Admin"]
+#   type              = "STANDARD"
+#   depends_on = [module.eks]
+# }
 

@@ -10,6 +10,8 @@ variable "vpc_name" {
   default = "petClinic_VPC"
 }
 
+
+
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC."
   type        = string
@@ -53,30 +55,6 @@ variable "availability_zone_b" {
   default     = "us-east-1b"
 }
 
-# variable "cluster_name" {
-#   description = "The name of the EKS cluster."
-#   type        = string
-#   default = "gms-cluster"
-# }
-
-
-# variable "ssh_key" {
-#   type        = string
-#   default = "Dev"
-# }
-#
-#
-#
-
-variable "user_name" {
-  type    = string
-  default = "gonzalo"
-}
-
-variable "user_arn" {
-  type    = string
-  default = "arn:aws:iam::976265146601:user/gonzalo"
-}
 
 variable "env" {
   type    = string
