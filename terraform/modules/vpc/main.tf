@@ -144,6 +144,3 @@ resource "aws_route_table_association" "publicB" {
   subnet_id      = aws_subnet.public_b.id
   route_table_id = aws_route_table.public.id
 }
-
-
-# Añadir recursos adicionales para la subred privada como NAT Gateway o Private Route Table si es necesario.
