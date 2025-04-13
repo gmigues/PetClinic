@@ -52,7 +52,7 @@ jobs:
         run: terraform apply "plan.out"
 
 jobs:
-  terraform EKS:
+  terraform eks:
     name: "EKS Terraform'
     runs-on: ubuntu-latest
     defaults:
