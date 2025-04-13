@@ -1,6 +1,6 @@
 
 provider "aws" {
-  profile = var.profile
+#  profile = var.profile
   region  = var.region
 }
 
@@ -9,7 +9,7 @@ terraform {
     bucket  = "petclinic-terraform-devops-2025"
     key     = "prod/eks/terraform.tfstate"
     region  = "us-east-1"
-    profile = "personal"
+#    profile = "personal"
 
   }
   required_providers {
