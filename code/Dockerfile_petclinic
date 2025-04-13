@@ -1,0 +1,38 @@
+# Etapa 1: Construcción del proyecto
+FROM eclipse-temurin:21-jdk-jammy AS builder
+WORKDIR /app
+
+# Copiar archivos necesarios y resolver dependencias
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:resolve
+
+# Copiar el resto del código fuente
+COPY src ./src
+
+# Compilar la aplicación
+RUN ./mvnw package -DskipTests
+
+# Descargar el agente de OpenTelemetry
+ARG OTEL_AGENT_VERSION=1.32.0
+RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OTEL_AGENT_VERSION}/opentelemetry-javaagent.jar \
+    -o /opt/opentelemetry-javaagent.jar
+
+# Etapa 2: Imagen final de producción
+FROM eclipse-temurin:21-jre-jammy
+WORKDIR /app
+
+# Copiar jar compilado desde el builder
+COPY --from=builder /app/target/spring-petclinic-*.jar /spring-petclinic.jar
+
+# Copiar el agente OpenTelemetry
+COPY --from=builder /opt/opentelemetry-javaagent.jar /opt/opentelemetry-javaagent.jar
+
+# Configurar el agente y exponer puertos
+ENV JAVA_TOOL_OPTIONS="-javaagent:/opt/opentelemetry-javaagent.jar"
+EXPOSE 8080
+EXPOSE 9464
+
+# Comando por defecto
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/spring-petclinic.jar"]
+
