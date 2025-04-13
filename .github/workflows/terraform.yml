@@ -51,7 +51,7 @@ jobs:
         if: github.ref == 'refs/heads/main' 
         run: terraform apply "plan.out"
   terraform eks:
-    name: "EKS Terraform'
+    name: "EKS Terraform"
     runs-on: ubuntu-latest
     defaults:
       run:
