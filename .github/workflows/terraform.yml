@@ -17,7 +17,7 @@ permissions:
   issues: write
 
 jobs:
-  terraform vpc:
+  terraform_vpc:
     name: 'VPC Terraform'
     runs-on: ubuntu-latest
     defaults:
@@ -50,7 +50,7 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' 
         run: terraform apply "plan.out"
-  terraform eks:
+  terraform_eks:
     name: "EKS Terraform"
     needs: terraform vpc
     runs-on: ubuntu-latest
