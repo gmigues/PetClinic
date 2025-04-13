@@ -52,7 +52,7 @@ jobs:
         run: terraform apply "plan.out"
   terraform_eks:
     name: "EKS Terraform"
-    needs: terraform vpc
+    needs: terraform_vpc
     runs-on: ubuntu-latest
     defaults:
       run:
