@@ -1,0 +1,51 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'code/**'
+ 
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+
+jobs:
+  Docker_Build:
+    name: 'Docker Build'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./code
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+
+      - name: Docker Build
+        id: build
+        run: docker build -f dockerfile_test -t petclinic-custom:latest .
+
+      - name: Docker Tag
+        id: tag
+        run: | 
+          docker tag petclinic_test:latest 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:latest
+          docker tag petclinic_test:latest 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:1.0.${GITHUB_RUN_NUMBER}
+
+      - name: Push to Amazon ECR
+        id: push
+        run: |
+          docker push 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:latest
+          docker push 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/1.0.${GITHUB_RUN_NUMBER}
+
+        
