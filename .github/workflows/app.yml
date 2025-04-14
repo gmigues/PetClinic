@@ -45,6 +45,7 @@ jobs:
       - name: Push to Amazon ECR
         id: push
         run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 976265146601.dkr.ecr.us-east-1.amazonaws.com
           docker push 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:latest
           docker push 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/1.0.${GITHUB_RUN_NUMBER}
 
