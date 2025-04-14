@@ -34,7 +34,7 @@ jobs:
 
       - name: Docker Build
         id: build
-        run: docker build -f dockerfile_petclinic -t petclinic-core:latest .
+        run: docker build -f Dockerfile_petclinic -t petclinic-core:latest .
 
       - name: Docker Tag
         id: tag
