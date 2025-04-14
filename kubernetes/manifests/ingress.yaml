@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: petclinic-ingress
+  namespace: petclinic
+ 
+spec:
+  rules:
+    - host: a0eb8a793ae59436cb1c29aaa5fe65b5-1510528629.us-east-1.elb.amazonaws.com  
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petclinic
+                port:
+                  number: 8080
