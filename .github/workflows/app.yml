@@ -34,13 +34,13 @@ jobs:
 
       - name: Docker Build
         id: build
-        run: docker build -f dockerfile_test -t petclinic-custom:latest .
+        run: docker build -f dockerfile_petclinic -t petclinic-core:latest .
 
       - name: Docker Tag
         id: tag
         run: | 
-          docker tag petclinic_test:latest 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:latest
-          docker tag petclinic_test:latest 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:1.0.${GITHUB_RUN_NUMBER}
+          docker tag petclinic-core:latest 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:latest
+          docker tag petclinic-core:latest 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:1.0.${GITHUB_RUN_NUMBER}
 
       - name: Push to Amazon ECR
         id: push
