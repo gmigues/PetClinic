@@ -1,0 +1,23 @@
+#create deployment manifest
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic-deployment
+  labels:
+    app: petclinic
+  namespace: petclinic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic
+  template:
+    metadata:
+      labels:
+        app: petclinic
+    spec:
+      containers:
+        - name: petclinic
+          image: 976265146601.dkr.ecr.us-east-1.amazonaws.com/prod/petclinic:2.0
+          ports:
+            - containerPort: 8080
